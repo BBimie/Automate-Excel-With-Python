@@ -4,9 +4,15 @@ from util.writer import SalesReport
 app = Flask(__name__)
 
 
-@app.post("/generate_report")
-def entryPoint():
-    SalesReport().generate()
+@app.get("/generate_report")
+def Generate():
+    try:
+        SalesReport().generate()
+        return jsonify(status=200,
+                    message='Report generated, check project folder')
+    except:
+        return jsonify(status=400,
+                       message='Could not generate report, check the logs')
 
 if __name__ == "__main__":
     app.run(debug=True)
