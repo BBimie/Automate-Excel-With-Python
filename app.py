@@ -10,9 +10,9 @@ def Generate():
         SalesReport().generate()
         return jsonify(status=200,
                     message='Report generated, check project folder')
-    except:
+    except Exception as e:
         return jsonify(status=400,
-                       message='Could not generate report, check the logs')
+                       message=f'Could not generate report')
 
 if __name__ == "__main__":
     app.run(debug=True)
