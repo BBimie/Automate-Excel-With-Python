@@ -41,6 +41,9 @@ class SalesReport:
         # sales data
         report_data: pd.DataFrame = data.sales_data()
 
+        #change data index
+        report_data.index = [i for i in range(1, len(report_data)+1)]
+
         # set report start row and column
         start_row = 3
         start_col = 0
@@ -66,6 +69,7 @@ class SalesReport:
         #Total row
         last_row = len(report_data) + start_row + 2
         writer.sheets['Sales'].write(f'C{last_row}', 'Total', bold_text)
+        writer.sheets['Sales'].write_formula(f'D{last_row}', f'=SUM(D{start_row+2}:D{last_row-1})', bold_number)
         writer.sheets['Sales'].write_formula(f'E{last_row}', f'=SUM(E{start_row+2}:E{last_row-1})', bold_number)
         writer.sheets['Sales'].write_formula(f'F{last_row}', f'=SUM(F{start_row+2}:F{last_row-1})', bold_number)
 
